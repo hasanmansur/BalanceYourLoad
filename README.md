@@ -1,2 +1,2 @@
 # BalanceYourLoad
-Simple Round Robin Load Balancer example using _node-http-proxy_ & _seaport_.
+Simple Round Robin Load Balancer example using **node-http-proxy** & **seaport**.

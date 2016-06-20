@@ -1,29 +1,25 @@
 var http = require('http')
-, httpProxy = require('http-proxy');
+, httpProxy = require('http-proxy')
+, seaport = require('seaport')
+, ports = seaport.connect('localhost', 9090);
 
-var i = 0;
-var addresses = [
-    {
-        host: 'localhost',
-        port: 8001
-    },
-    {
-        host: 'localhost',
-        port: 8002
-    },
-    {
-        host: 'localhost',
-        port: 8003
-    }
-];
+var i = -1;
 
 var proxy = httpProxy.createProxyServer({});
 var server = http.createServer(function(req, res) {
-  proxy.web(req, res, { target: 'http://' + addresses[i].host + ':' + addresses[i].port });
-  i = (i + 1) % addresses.length;
+	var addresses = ports.query('add-server');
+	if (!addresses.length) {
+        res.writeHead(503, { 'Content-Type': 'text/plain' });
+        res.end('Service unavailable');
+        return;
+    }
+	i = (i + 1) % addresses.length;
+	var host = addresses[i].host.split(":").reverse()[0];
+	var port = addresses[i].port;
+	proxy.web(req, res, { target: 'http://' + host + ':' + port });	
 });
 
-server.listen(5050, function () {
-	console.log('listening on port %d', 5050);
+server.listen(8000, function () {
+	console.log('load balancer listening on port %d', 8000);
 });
 

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seaport": "./node_modules/.bin/seaport"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/hasanmansur/BalanceYourLoad#readme",
   "dependencies": {
-    "http-proxy": "^1.14.0"
+    "http-proxy": "^1.14.0",
+    "seaport": "^2.0.9"
   }
 }

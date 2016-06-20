@@ -1,6 +1,6 @@
-var http = require('http');
-var args = process.argv.splice(2);
-var port = args[0] || 8000;
+var http = require('http')
+, seaport = require('seaport')
+, ports = seaport.connect('localhost', 9090);
 
 function add () {
 	var n = 100000, sum = 0;
@@ -10,11 +10,13 @@ function add () {
 	return sum;
 }
 
+// add-server
 var server = http.createServer(function (req, res) {
 	res.writeHead(200, { 'Content-Type': 'text/plain' });
-	res.end('grand total: ' + add() + ', serving server port#' + port);
+	res.end('grand total: ' + add() + ', Response from port: ' + this.address().port);
 });
 
-server.listen(port, function () {
-	console.log('server is listening on %d', port);
+// add-server listens to PORT registered in seaport
+server.listen(ports.register('add-server'), function () {
+	console.log('add-server listening on %d', this.address().port);
 });

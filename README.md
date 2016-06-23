@@ -13,4 +13,16 @@ The ability of the system to scale and to balance the load, are two vital featur
 
 How?
 ----
-In this simple example a client actually requests to the load balancer (**load-balancer.js**) for the result of a sum operation whereas this request is forwarded to different servers (**add-server.js**) in a Round Robin scheduling. It also demonstrates the idea of service registration so that the system architecture doesn't get interrupted in case of addition/removal of servers behind the load balancer.  
+In this simple example a client actually requests to the load balancer (**load-balancer.js**) for the result of a sum operation whereas this request is forwarded to different servers (**add-server.js**) in a Round Robin scheduling. It also demonstrates the idea of service registration so that the system architecture doesn't get interrupted in case of addition/removal of servers behind the load balancer.
+
+Install & Run
+-------------
+- Prerequisite: Node.js
+- Clone the repo : git clone https://github.com/hasanmansur/BalanceYourLoad.git
+- cd /path/to/BalanceYourLoad
+- npm run seaport listen 9090
+- node load-balancer.js
+- node add-server.js (you might do it multiple times for initiating multiple add-servers)
+- curl http://localhost:8000 (response will be provided by add-servers running on diffent ports)
+
+
